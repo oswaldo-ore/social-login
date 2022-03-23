@@ -12,7 +12,7 @@ $('#facebookLogin').click(function(event){
     var user = result.user;
 
     console.log(user);
-    console.log(credential);
+    /*console.log(credential);*/
     // ...
 
     $.ajax({
@@ -21,11 +21,12 @@ $('#facebookLogin').click(function(event){
         dataType: "json",
         data: user.providerData[0],
         success: function(data){
-            console.log(data);
+
             if(data.status == "success"){
                 alert("inicio de sesión con éxito");
                 window.location.replace(URL+"/dashboard");
             }else{
+                console.log(data.data);
                 alert("Ha ocurrido un error");
             }
         },

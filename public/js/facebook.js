@@ -31,6 +31,7 @@ $('#facebookLogin').click(function(event){
         },
         error: function(error){
             alert("Ocurrió un error");
+            console.log(error);
         }
     });
 

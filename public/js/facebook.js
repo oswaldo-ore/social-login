@@ -5,6 +5,7 @@ $('#facebookLogin').click(function(event){
   .signInWithPopup(facebookProvider)
   .then((result) => {
     /** @type {firebase.auth.OAuthCredential} */
+    console.log("connect" , result);
     var credential = result.credential;
 
     // The signed-in user info.
@@ -12,6 +13,7 @@ $('#facebookLogin').click(function(event){
 
     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
     var accessToken = credential.accessToken;
+
     console.log(user);
     // ...
   })
@@ -23,7 +25,7 @@ $('#facebookLogin').click(function(event){
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
-
+    console.log(error);
     // ...
   });
 

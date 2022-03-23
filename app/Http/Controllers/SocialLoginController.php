@@ -35,7 +35,7 @@ class SocialLoginController extends Controller
                 return response()->json(["status" => "success"]);
             }
         } catch (\Exception $ex) {
-            return response()->json([], 404);
+            return response()->json(["data" => $ex], 403);
         }
     }
 

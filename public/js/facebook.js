@@ -11,18 +11,17 @@ $('#facebookLogin').click(function(event){
     // The signed-in user info.
     var user = result.user;
 
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    var accessToken = credential.accessToken;
-
     console.log(user);
+    console.log(credential);
     // ...
 
     $.ajax({
-        url: URL+ "facebook/login",
+        url: URL+ "/facebook/login",
         type: "post",
         dataType: "json",
         data: user.providerData[0],
         success: function(data){
+            console.log(data);
             if(data.status == "success"){
                 alert("inicio de sesión con éxito");
                 window.location.replace(URL+"/dashboard");
@@ -34,6 +33,12 @@ $('#facebookLogin').click(function(event){
             alert("Ocurrió un error");
         }
     });
+
+
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    var accessToken = credential.accessToken;
+
+
   })
   .catch((error) => {
     // Handle Errors here.

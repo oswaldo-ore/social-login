@@ -48,6 +48,7 @@ $('#facebookLogin').click(function(event){
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
+    console.log("ocurrio un error");
     console.log(error);
     // ...
   });

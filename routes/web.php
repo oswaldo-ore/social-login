@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/{provider}/login', [SocialLoginController::class, 'socialAuthLogin']);
+Route::post('{provider}/login', [SocialLoginController::class, 'socialAuthLogin']);
 
 
 Route::get('/dashboard', [DashboardController::class, 'index']);

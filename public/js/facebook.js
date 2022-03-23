@@ -16,6 +16,24 @@ $('#facebookLogin').click(function(event){
 
     console.log(user);
     // ...
+
+    $.ajax({
+        url: "https://social-login-prueba.herokuapp.com/facebook/login",
+        type: "post",
+        dataType: "json",
+        data: user.providerData[0],
+        success: function(data){
+            if(data.status == "success"){
+                alert("inicio de sesión con éxito");
+                window.location.replace(URL+"/dashboard");
+            }else{
+                alert("Ha ocurrido un error");
+            }
+        },
+        error: function(error){
+            alert("Ocurrió un error");
+        }
+    });
   })
   .catch((error) => {
     // Handle Errors here.

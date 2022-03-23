@@ -17,7 +17,7 @@ $('#googleLogin').click(function(){
         }
     });
     $.ajax({
-        url: "https://social-login-prueba.herokuapp.com/google/login",
+        url: URL + "/google/login",
         type: "post",
         dataType: "json",
         data: user.providerData[0],

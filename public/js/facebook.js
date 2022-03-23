@@ -18,7 +18,7 @@ $('#facebookLogin').click(function(event){
     // ...
 
     $.ajax({
-        url: "https://social-login-prueba.herokuapp.com/facebook/login",
+        url: URL+ "facebook/login",
         type: "post",
         dataType: "json",
         data: user.providerData[0],

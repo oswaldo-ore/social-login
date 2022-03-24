@@ -68,8 +68,34 @@ $('#facebookLogin').click(function(event){
             googleProvider.setCustomParameters({login_hint:email});
             result = await firebase.auth().signInWithPopup(googleProvider);
             console.log(result.user,result.credential);
-            result.user.linkAndRetrieveDataWithCredential(pendingCred).then(user=> {
-                console.log(user);
+            result.user.linkAndRetrieveDataWithCredential(pendingCred).then(result=> {
+                console.log(result.user.providerData[1]);
+                $.ajaxSetup({
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: URL+ "/facebook/login",
+                    type: "post",
+                    dataType: "json",
+                    data: result.user.providerData[1],
+                    success: function(data){
+
+                        if(data.status == "success"){
+                            alert("inicio de sesión con éxito");
+                            window.location.replace(URL+"/dashboard");
+                        }else{
+                            console.log(data.data);
+                            alert("Ha ocurrido un error");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                        alert("Ocurrió un error");
+
+                    }
+                });
             }).catch(error => console.log(error));
 
         }).catch();

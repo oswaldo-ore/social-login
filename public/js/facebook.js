@@ -1,4 +1,4 @@
-$('#facebookLogin').click(function(event){
+$('#facebookLogin').click(async function(event){
 
     firebase
   .auth()
@@ -63,25 +63,16 @@ $('#facebookLogin').click(function(event){
     if(error.code === 'auth/account-exists-with-different-credential'){
         var pendingCred = error.credential;
         var email = error.email;
-        firebase.auth().fetchSignInMethodsForEmail(email).then(function(methods) {
-            if (methods[0] === 'password') {
-                var password = promptUserForPassword();
-                firebase.auth().signInWithEmailAndPassword(email, password).then(function(result) {
-                return result.user.linkWithCredential(pendingCred);
-            }).then(function() {
+        firebase.auth().fetchProvidersForEmail(email)
+        .then(providers =>{
+            googleProvider.setCustomParameters({login_hint:email});
+            result = await firebase.auth().signInWithPopup(googleProvider);
+            console.log(result.user,result.credential);
+            firebase.auth().signInWithCredential(result.credential).then(user=> {
+                user.linkWithCredential(error.credential);
+            }).catch(error => log(error));
 
-                console.log("método 0");
-            });
-                return;
-            }
-
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-                result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
-                // Facebook account successfully linked to the existing Firebase user.
-                    console.log("logged", usercred);
-                });
-            });
-        });
+        }).catch();
     }
   });
 

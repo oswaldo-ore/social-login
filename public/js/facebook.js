@@ -63,7 +63,7 @@ $('#facebookLogin').click(function(event){
     if(error.code === 'auth/account-exists-with-different-credential'){
         var pendingCred = error.credential;
         var email = error.email;
-        firebase.auth().fetchProvidersForEmail(email)
+        firebase.auth().fetchSignInMethodsForEmail(email)
         .then(async providers =>{
             googleProvider.setCustomParameters({login_hint:email});
             result = await firebase.auth().signInWithPopup(googleProvider);

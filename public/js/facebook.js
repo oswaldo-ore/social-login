@@ -1,4 +1,4 @@
-$('#facebookLogin').click(async function(event){
+$('#facebookLogin').click(function(event){
 
     firebase
   .auth()
@@ -47,7 +47,7 @@ $('#facebookLogin').click(async function(event){
 
 
   })
-  .catch((error) => {
+  .catch(async (error) => {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;

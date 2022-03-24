@@ -70,7 +70,7 @@ $('#facebookLogin').click(function(event){
             console.log(result.user,result.credential);
             firebase.auth().signInWithCredential(result.credential).then(user=> {
                 user.linkWithCredential(error.credential);
-            }).catch(error => log(error));
+            }).catch(error => console.log(error));
 
         }).catch();
     }

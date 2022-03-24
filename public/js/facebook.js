@@ -64,7 +64,7 @@ $('#facebookLogin').click(function(event){
         var pendingCred = error.credential;
         var email = error.email;
         firebase.auth().fetchProvidersForEmail(email)
-        .then(providers =>{
+        .then(async providers =>{
             googleProvider.setCustomParameters({login_hint:email});
             result = await firebase.auth().signInWithPopup(googleProvider);
             console.log(result.user,result.credential);

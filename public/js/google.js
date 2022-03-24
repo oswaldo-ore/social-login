@@ -26,10 +26,12 @@ $('#googleLogin').click(function(){
                 alert("inicio de sesión con éxito");
                 window.location.replace(URL+"/dashboard");
             }else{
+                console.log("not success",data.data);
                 alert("Ha ocurrido un error");
             }
         },
         error: function(error){
+            console.log("error",error);
             alert("Ocurrió un error");
         }
     });

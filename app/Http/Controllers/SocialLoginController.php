@@ -12,10 +12,11 @@ class SocialLoginController extends Controller
     public function socialAuthLogin($provider, Request $request)
     {
         try {
-            $checkUser = SocialAccount::where('provider_id', $request->uid)->first();
+            $checkUser = SocialAccount::where('provider_id', $request->uid)->where("provider_name", $provider)->first();
             if (!is_null($checkUser)) {
                 $checkUser->provider_id = $request->uid;
                 $checkUser->provider_name = $provider;
+                $checkUser->update();
                 Auth::loginUsingId($checkUser->user->id);
                 return response()->json(["status" => "success"]);
             } else {

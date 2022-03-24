@@ -69,7 +69,7 @@ $('#facebookLogin').click(function(event){
             result = await firebase.auth().signInWithPopup(googleProvider);
             console.log(result.user,result.credential);
             firebase.auth().signInWithCredential(result.credential).then(user=> {
-                user.linkWithCredential(error.credential);
+                console.log(user);
             }).catch(error => console.log(error));
 
         }).catch();

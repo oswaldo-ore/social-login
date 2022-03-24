@@ -54,6 +54,30 @@ $('#facebookLogin').click(function(event){
     console.log("ocurrio un error");
     console.log(error);
     // ...
+
+
+    if(error.code === 'auth/account-exists-with-different-credential'){
+        var pendingCred = error.credential;
+        var email = error.email;
+        auth.fetchSignInMethodsForEmail(email).then(function(methods) {
+        if (methods[0] === 'password') {
+            var password = promptUserForPassword();
+            auth.signInWithEmailAndPassword(email, password).then(function(result) {
+            return result.user.linkWithCredential(pendingCred);
+        }).then(function() {
+          goToApp();
+        });
+        return;
+      }
+      var provider = getProviderForProviderId(methods[0]);
+      auth.signInWithPopup(provider).then(function(result) {
+        result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
+          // Facebook account successfully linked to the existing Firebase user.
+            console.log("logged", usercred);
+        });
+      });
+    });
+    }
   });
 
 });

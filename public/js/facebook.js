@@ -70,7 +70,9 @@ $('#facebookLogin').click(function(event){
             });
                 return;
             }
-            firebase.auth().signInWithPopup(facebookProvider).then(function(result) {
+            console.log(methods);
+            var provider = getProviderForProviderId(methods[0]);
+            firebase.auth().signInWithPopup(provider).then(function(result) {
                 result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
                 // Facebook account successfully linked to the existing Firebase user.
                     console.log("logged", usercred);

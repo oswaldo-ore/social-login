@@ -59,10 +59,10 @@ $('#facebookLogin').click(function(event){
     if(error.code === 'auth/account-exists-with-different-credential'){
         var pendingCred = error.credential;
         var email = error.email;
-        firebase.auth.fetchSignInMethodsForEmail(email).then(function(methods) {
+        firebase.auth().fetchSignInMethodsForEmail(email).then(function(methods) {
             if (methods[0] === 'password') {
                 var password = promptUserForPassword();
-                firebase.auth.signInWithEmailAndPassword(email, password).then(function(result) {
+                firebase.auth().signInWithEmailAndPassword(email, password).then(function(result) {
                 return result.user.linkWithCredential(pendingCred);
             }).then(function() {
 
@@ -71,7 +71,7 @@ $('#facebookLogin').click(function(event){
                 return;
             }
             var provider = getProviderForProviderId(methods[0]);
-            firebase.auth.signInWithPopup(provider).then(function(result) {
+            firebase.auth().signInWithPopup(provider).then(function(result) {
                 result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
                 // Facebook account successfully linked to the existing Firebase user.
                     console.log("logged", usercred);
